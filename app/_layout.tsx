@@ -1,20 +1,23 @@
-import { Stack } from "expo-router";
-import { SafeAreaView, StatusBar, useColorScheme } from "react-native";
+import { Slot } from "expo-router";
+import { useColorScheme } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const isDark = colorScheme === "dark";
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: colorScheme === "dark" ? "#000" : "#fff",
-      }}
-    >
-      <StatusBar
-        barStyle={colorScheme === "dark" ? "light-content" : "dark-content"}
-      />
-      <Stack />
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: isDark ? "#000" : "#fff",
+        }}
+      >
+        <StatusBar translucent animated style="auto" />
+        <Slot />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
