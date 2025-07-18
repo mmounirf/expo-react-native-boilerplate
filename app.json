@@ -4,6 +4,7 @@
     "slug": "expo-react-native-boilerplate",
     "version": "1.0.0",
     "orientation": "portrait",
+    "scheme": "expo.react.native.boilerplate",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
@@ -30,6 +31,7 @@
         "projectId": "1c2a98e9-c83b-46ee-aba9-f3d6a75d15cd"
       }
     },
-    "owner": "mmounirf"
+    "owner": "mmounirf",
+    "plugins": ["expo-router"]
   }
 }
