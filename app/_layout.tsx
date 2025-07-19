@@ -1,20 +1,12 @@
 import { Slot } from "expo-router";
-import { useColorScheme } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import "../global.css";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === "dark";
-
   return (
     <SafeAreaProvider>
-      <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: isDark ? "#000" : "#fff",
-        }}
-      >
+      <SafeAreaView className="flex-1 bg-white dark:bg-black">
         <StatusBar translucent animated style="auto" />
         <Slot />
       </SafeAreaView>
