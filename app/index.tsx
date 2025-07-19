@@ -1,7 +1,8 @@
-import { Appearance, Switch, Text, useColorScheme, View } from "react-native";
+import { Switch, Text, View } from "react-native";
+import { useColorScheme } from "~/lib/useColorScheme";
 
 export default function HomeScreen() {
-  const colorScheme = useColorScheme();
+  const { setColorScheme, colorScheme } = useColorScheme();
 
   return (
     <View className="flex-1 items-center justify-center ">
@@ -12,9 +13,7 @@ export default function HomeScreen() {
         Current theme: {colorScheme}
       </Text>
       <Switch
-        onValueChange={(isDark) =>
-          Appearance.setColorScheme(isDark ? "dark" : "light")
-        }
+        onValueChange={(isDark) => setColorScheme(isDark ? "dark" : "light")}
         value={colorScheme === "dark"}
       />
     </View>
