@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { Stack } from 'expo-router'
 
 export default function AppLayout() {
   return (
@@ -7,7 +7,7 @@ export default function AppLayout() {
         headerShown: true,
       }}
     >
-      <Stack.Screen name="home" options={{ title: "Home" }} />
+      <Stack.Screen name="home" options={{ title: 'Home' }} />
     </Stack>
-  );
+  )
 }

@@ -1,7 +1,7 @@
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import "../global.css";
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
+import '../global.css'
+import { Stack } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
 
 function RootNavigator() {
   return (
@@ -12,7 +12,7 @@ function RootNavigator() {
         <Stack.Screen name="(app)" />
       </Stack>
     </SafeAreaView>
-  );
+  )
 }
 
 export default function RootLayout() {
@@ -20,5 +20,5 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <RootNavigator />
     </SafeAreaProvider>
-  );
+  )
 }

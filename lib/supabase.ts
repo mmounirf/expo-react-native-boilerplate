@@ -1,6 +1,6 @@
-import "react-native-url-polyfill/auto";
-import { createClient, processLock } from "@supabase/supabase-js";
-import { SecureStoreAdapter } from "./SecureStoreAdapter";
+import 'react-native-url-polyfill/auto'
+import { createClient, processLock } from '@supabase/supabase-js'
+import { SecureStoreAdapter } from './SecureStoreAdapter'
 
 export const supabase = createClient(
   process.env.EXPO_PUBLIC_SUPABASE_URL!,
@@ -14,4 +14,4 @@ export const supabase = createClient(
       lock: processLock,
     },
   }
-);
+)

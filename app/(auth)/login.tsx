@@ -1,5 +1,5 @@
-import { Link } from "expo-router";
-import { Text, View } from "react-native";
+import { Link } from 'expo-router'
+import { Text, View } from 'react-native'
 
 export default function LoginScreen() {
   return (
@@ -8,11 +8,11 @@ export default function LoginScreen() {
 
       <Link
         href="/register"
-        className="p-2 rounded-md bg-blue-500 text-white"
+        className="rounded-md bg-blue-500 p-2 text-white"
         replace
       >
         Register new account
       </Link>
     </View>
-  );
+  )
 }
