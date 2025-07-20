@@ -28,15 +28,7 @@ const HomeScreen = () => {
           })
         }
       />
-      <Button
-        title="Remove State"
-        onPress={() =>
-          setState({
-            id: 'newId',
-            payload: 'This is securely stored and encryped value',
-          })
-        }
-      />
+      <Button title="Remove State" onPress={() => setState(null)} />
       <View className="flex flex-row gap-2">
         <Link href="/login" className="rounded-md bg-blue-500 p-2 text-white">
           <Text>Go to Sign In</Text>
