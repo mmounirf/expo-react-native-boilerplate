@@ -1,9 +1,10 @@
-import nativewindPreset from 'nativewind/preset'
+const { hairlineWidth } = require('nativewind/theme')
 
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./app/**/*.{js,ts,tsx}'],
-  presets: [nativewindPreset],
+module.exports = {
+  darkMode: 'class',
+  content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
+  presets: [require('nativewind/preset')],
   theme: {
     extend: {
       colors: {
@@ -60,5 +61,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwindcss-animate')],
 }
