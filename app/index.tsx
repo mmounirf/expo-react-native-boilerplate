@@ -17,13 +17,13 @@ const HomeScreen = () => {
   const { state, setState } = useSecureStore<StoreType>('testSecureStore')
 
   return (
-    <View className="bg-card flex-1 items-center justify-center gap-5 p-6">
+    <View className="flex-1 items-center justify-center gap-5 bg-card p-6">
       <ThemeToggle />
 
       <Button variant="outline">
         <Text>Update</Text>
       </Button>
-      <Text className="text-foreground text-2xl font-bold">User is</Text>
+      <Text className="text-2xl font-bold text-foreground">User is</Text>
       <Text className="text-md 0 text-card-foreground">
         {session ? 'Signed In' : 'Signed Out'}
       </Text>
@@ -41,7 +41,7 @@ const HomeScreen = () => {
           </Link>
         </Button>
       </View>
-      <Link href="/register" asChild>
+      <Link href="/home" asChild>
         <Button variant="secondary" size="lg">
           <Text>Go Home</Text>
         </Button>
