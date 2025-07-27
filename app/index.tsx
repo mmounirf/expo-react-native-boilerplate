@@ -1,20 +1,12 @@
 import { Link } from 'expo-router'
 import { View } from 'react-native'
-import { Button } from '~/components/button'
-import { Text } from '~/components/text'
 import { ThemeToggle } from '~/components/ThemeToggle'
+import { Button } from '~/components/ui/button'
+import { Text } from '~/components/ui/text'
 import { useAuth } from '~/context/AuthContext'
-import { useSecureStore } from '~/hooks/useSecureStore'
-
-type StoreType = {
-  id: string
-  payload: string
-}
 
 const HomeScreen = () => {
-  const { session } = useAuth()
-
-  const { state, setState } = useSecureStore<StoreType>('testSecureStore')
+  const { session, signOut, isLoading } = useAuth()
 
   return (
     <View className="flex-1 items-center justify-center gap-5 bg-card p-6">
@@ -29,6 +21,13 @@ const HomeScreen = () => {
       </Text>
 
       <View className="flex gap-2">
+        <Button
+          variant="destructive"
+          onPress={() => signOut()}
+          disabled={isLoading}
+        >
+          <Text>Sign Out</Text>
+        </Button>
         <Button variant="ghost">
           <Link href="/login">
             <Text>Go to Sign In</Text>
