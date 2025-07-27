@@ -1,4 +1,5 @@
 import { createClient, processLock } from '@supabase/supabase-js'
+import { AppState } from 'react-native'
 import 'react-native-url-polyfill/auto'
 import { SecureStoreAdapter } from './SecureStoreAdapter'
 
@@ -15,3 +16,11 @@ export const supabase = createClient(
     },
   }
 )
+
+AppState.addEventListener('change', (state) => {
+  if (state === 'active') {
+    supabase.auth.startAutoRefresh()
+  } else {
+    supabase.auth.stopAutoRefresh()
+  }
+})
