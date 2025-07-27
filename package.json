@@ -11,9 +11,11 @@
     "lint:fix": "expo lint --fix",
     "format": "prettier --write .",
     "clean": "rm -rf .expo node_modules",
+    "ui": "npx @react-native-reusables/cli@latest add",
     "postinstall": "npx tailwindcss -i ./global.css -o ./node_modules/.cache/nativewind/global.css"
   },
   "dependencies": {
+    "@rn-primitives/label": "^1.2.0",
     "@rn-primitives/slot": "^1.2.0",
     "@supabase/supabase-js": "^2.52.0",
     "class-variance-authority": "^0.7.1",
