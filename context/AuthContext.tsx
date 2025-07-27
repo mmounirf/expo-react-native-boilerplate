@@ -13,31 +13,19 @@ import { supabase } from '../lib/supabase'
 type AuthContextType = {
   signOut: () => Promise<void>
   session: Session | null
-  isLoading: boolean
 }
 
 const AuthContext = createContext<AuthContextType>({
   signOut: async () => {},
   session: null,
-  isLoading: true,
 })
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+
+  // No need to hydrate session from storage here, Supabase does it automatically with our "SecureStoreAdapter"
 
   useEffect(() => {
-    // Get initial session - Supabase handles restoration automatically
-    const initSession = async () => {
-      const {
-        data: { session: currentSession },
-      } = await supabase.auth.getSession()
-      setSession(currentSession)
-      setIsLoading(false)
-    }
-
-    initSession()
-
     // Subscribe to auth state changes
     const {
       data: { subscription },
@@ -57,7 +45,6 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   const value: AuthContextType = {
     session,
-    isLoading,
     signOut,
   }
 

@@ -1,4 +1,5 @@
 import { Link } from 'expo-router'
+import { useState } from 'react'
 import { View } from 'react-native'
 import { ThemeToggle } from '~/components/ThemeToggle'
 import { Button } from '~/components/ui/button'
@@ -6,7 +7,15 @@ import { Text } from '~/components/ui/text'
 import { useAuth } from '~/context/AuthContext'
 
 const HomeScreen = () => {
-  const { session, signOut, isLoading } = useAuth()
+  const [isLoading, setIsLoading] = useState(false)
+
+  const { session, signOut } = useAuth()
+
+  const handleSignOut = async () => {
+    setIsLoading(true)
+    await signOut()
+    setIsLoading(false)
+  }
 
   return (
     <View className="flex-1 items-center justify-center gap-5 bg-card p-6">
@@ -23,7 +32,7 @@ const HomeScreen = () => {
       <View className="flex gap-2">
         <Button
           variant="destructive"
-          onPress={() => signOut()}
+          onPress={handleSignOut}
           disabled={isLoading}
         >
           <Text>Sign Out</Text>

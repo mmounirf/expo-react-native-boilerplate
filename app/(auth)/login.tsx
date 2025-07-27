@@ -35,7 +35,12 @@ export default function LoginScreen() {
 
   const onSubmit: SubmitHandler<FormValues> = async ({ email, password }) => {
     setIsLoading(true)
-    await supabase.auth.signInWithPassword({ email, password })
+    // TODO: handle invalid credentials error with alert dialog or toast
+    await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+    setIsLoading(false)
   }
 
   return (
