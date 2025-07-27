@@ -1,77 +1,73 @@
-import type { Session } from '@supabase/supabase-js'
+import { Session } from '@supabase/supabase-js'
 import {
   createContext,
-  type PropsWithChildren,
+  FC,
+  ReactNode,
+  useCallback,
   useContext,
   useEffect,
-  useReducer,
+  useState,
 } from 'react'
-import { useSecureStore } from '~/hooks/useSecureStore'
-import { supabase } from '~/lib/supabase'
+import { supabase } from '../lib/supabase'
 
-const AuthContext = createContext<{
-  signIn: () => void
-  signOut: () => void
+type AuthContextType = {
+  signOut: () => Promise<void>
   session: Session | null
   isLoading: boolean
-} | null>(null)
-
-export function useAuth() {
-  const value = useContext(AuthContext)
-  if (!value) {
-    throw new Error('useAuth must be used within a <AuthProvider />')
-  }
-  return value
 }
 
-export function AuthProvider({ children }: PropsWithChildren) {
-  const { setState, state } = useSecureStore<Session>('supabase.session')
-  const [session, setSession] = useReducer(
-    (_: Session | null, action: Session | null) => action,
-    null
-  )
+const AuthContext = createContext<AuthContextType>({
+  signOut: async () => {},
+  session: null,
+  isLoading: true,
+})
+
+export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
+  const [session, setSession] = useState<Session | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const restore = async () => {
-      if (state) {
-        const { data, error } = await supabase.auth.setSession(state)
-        if (!error) {
-          setSession(data.session)
-        }
-      }
+    // Get initial session - Supabase handles restoration automatically
+    const initSession = async () => {
+      const {
+        data: { session: currentSession },
+      } = await supabase.auth.getSession()
+      setSession(currentSession)
+      setIsLoading(false)
     }
-    restore()
-  }, [state])
 
-  useEffect(() => {
-    const { data: subscription } = supabase.auth.onAuthStateChange(
-      (_, session) => {
-        if (session) {
-          setSession(session)
-          setState(session)
-        } else {
-          setSession(null)
-          setState(null)
-        }
-      }
-    )
+    initSession()
 
-    return () => subscription.subscription.unsubscribe()
-  }, [setState])
+    // Subscribe to auth state changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_, newSession) => {
+      setSession(newSession)
+    })
 
-  const signIn = async () => {
-    await supabase.auth.signInWithOtp({ email: 'demo@example.com' })
-  }
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [])
 
-  const signOut = async () => {
+  const signOut = useCallback(async () => {
     await supabase.auth.signOut()
+    // Supabase will automatically clear stored session and fire SIGNED_OUT event
+  }, [])
+
+  const value: AuthContextType = {
+    session,
+    isLoading,
+    signOut,
   }
 
-  return (
-    <AuthContext.Provider
-      value={{ signIn, signOut, session, isLoading: false }}
-    >
-      {children}
-    </AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+}
+
+export const useAuth = () => {
+  const context = useContext(AuthContext)
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider')
+  }
+  return context
 }
