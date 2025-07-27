@@ -8,6 +8,7 @@ import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { NAV_THEME } from '~/lib/constants'
 
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { AuthProvider, useAuth } from '~/context/AuthContext'
 import '~/global.css'
 import { useColorScheme } from '~/lib/useColorScheme'
@@ -44,7 +45,9 @@ function RootNavigator() {
 export default function RootLayout() {
   return (
     <AuthProvider>
-      <RootNavigator />
+      <SafeAreaView className="flex-1 bg-background">
+        <RootNavigator />
+      </SafeAreaView>
     </AuthProvider>
   )
 }
