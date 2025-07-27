@@ -15,7 +15,7 @@ export function ThemeToggle() {
   return (
     <Pressable
       onPress={toggleColorScheme}
-      className="web:ring-offset-background web:focus-visible:ring-ring active:opacity-70 web:transition-colors web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-offset-2"
+      className="active:opacity-70 web:ring-offset-background web:transition-colors web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2"
     >
       <View className="flex aspect-square items-start justify-center pt-0.5 web:px-5">
         {isDarkColorScheme ? (

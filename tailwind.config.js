@@ -1,4 +1,5 @@
 const { hairlineWidth } = require('nativewind/theme')
+const defaultTheme = require('tailwindcss/defaultTheme')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -59,6 +60,7 @@ module.exports = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      spacing: { view: defaultTheme.spacing[4] },
     },
   },
   plugins: [require('tailwindcss-animate')],
